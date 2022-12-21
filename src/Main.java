@@ -34,27 +34,15 @@ public class Main {
         System.out.println("Список фамилий призывников:" + conscript);
 
 
-        List<String> workPeopleWoman = persons.stream()
+        List<String> workPeople = persons.stream()
                 .filter(x -> x.getAge() > 18)
-                .filter(x -> x.getSex() == Sex.WOMAN && x.getAge()<60 )
+                .filter(x -> (x.getSex() == Sex.WOMAN && x.getAge()<60) || (x.getSex() == Sex.MAN && x.getAge()<65))
                 .filter(x-> x.getEducation() == Education.HIGHER)
                 .sorted(Comparator.comparing(Person::getFamily))
                 .map(x ->x.getFamily())
                 .distinct()
                 .collect(Collectors.toList());
 
-        List<String> workPeopleMan = persons.stream()
-                .filter(x -> x.getAge() > 18)
-                .filter(x -> x.getSex() == Sex.MAN && x.getAge()<65 )
-                .filter(x-> x.getEducation() == Education.HIGHER)
-                .sorted(Comparator.comparing(Person::getFamily))
-                .map(x ->x.getFamily())
-                .distinct()
-                .collect(Collectors.toList());
-
-        List <String> workPeople = Stream.concat(workPeopleWoman.stream(), workPeopleMan.stream())
-                .distinct()
-                .collect(Collectors.toList());
         System.out.println("Список фамилий работоспособных людей: " + workPeople);
 
 
